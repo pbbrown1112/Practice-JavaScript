@@ -3691,7 +3691,7 @@ function findInnerDiaAndFindPoundsPerFoot() {
     var casingOneWallThickness = prompt('What is the wall thickness of the outermost casing in inches?');
     var casingOneWallThicknessDecimal = eval(casingOneWallThickness);
     for (var i = 0; i < pipes.length; i++) {
-      if (pipes[i].nominal == casingOneDiaDecimal && pipes[i].wallThickness == casingOneWallThicknessDecimal) {
+      if (eval(pipes[i].nominal) === casingOneDiaDecimal && eval(pipes[i].wallThickness) === casingOneWallThicknessDecimal) {
           casingOneInnerDia = eval(pipes[i].insideDia);
           casingOnePoundsPerFootDecimal = eval(pipes[i].poundsPerFoot);
       }
@@ -3699,7 +3699,7 @@ function findInnerDiaAndFindPoundsPerFoot() {
   } else {
     casingOnePoundsPerFootDecimal = eval(casingOnePoundsPerFoot);
       for (var j = 0; j < pipes.length; j++) {
-        if (pipes[j].nominal == casingOneDiaDecimal && eval(pipes[j].poundsPerFoot) == casingOnePoundsPerFootDecimal) {
+        if (eval(pipes[j].nominal) === casingOneDiaDecimal && eval(pipes[j].poundsPerFoot) === casingOnePoundsPerFootDecimal) {
             casingOneInnerDia = eval(pipes[j].insideDia);
         }
       }
