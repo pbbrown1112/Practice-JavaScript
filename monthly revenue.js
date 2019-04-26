@@ -3,21 +3,24 @@
 // Calculate the monthly revenue of all employees
 
 var dovetailPersonnel = [
-                            {   name: "Hunter",
+                            {   firstName: "Hunter",
+                                lastName: "Wright",
                                 rate: 85,
                                 hours: [
                                         {numhrs: 30, billable: true},
                                         {numhrs: 20, billable: false}
                                         ]
                             },
-                            {   name: "James",
+                            {   firstName: "James",
+                                lastName: "Fason",
                                 rate: 225,
                                 hours: [
                                         {numhrs: 10, billable: true},
                                         {numhrs: 100, billable: false}
                                         ]
                             },
-                            {   name: "Brendan",
+                            {   firstName: "Brendan",
+                                lastName: "Brown",
                                 rate: 7000,
                                 hours: [
                                         {numhrs: 30, billable: true},
@@ -41,3 +44,16 @@ return mnthlyRev;
 }
 
 monthlyRevenue()
+
+function makeString() {
+var dovetailString = '';
+    for (var i = 0; i < dovetailPersonnel.length; i++) {
+        var person = dovetailPersonnel[i];
+        for (j=0; j < person.hours.length; j++) {
+            dovetailString += person.firstName +' , '+ person.lastName  +' , '+ person.rate +' , '+ person.hours[j].numhrs +' , '+ person.hours[j].billable+'\n';
+        }
+    }
+return dovetailString;
+}
+
+makeString();
