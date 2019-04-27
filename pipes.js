@@ -3704,7 +3704,12 @@ function findInnerDiaAndFindPoundsPerFoot() {
         }
       }
   }
+
+
 }
 findInnerDiaAndFindPoundsPerFoot();
+
+console.log(`The outermost casing inner-diameter is ${casingOneInnerDia} inches.`);
+console.log(`The outermost casing weight is ${casingOnePoundsPerFootDecimal} pounds per foot.`);
 
 
