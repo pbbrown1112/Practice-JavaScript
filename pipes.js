@@ -3676,40 +3676,239 @@ var pipes = [
   }
 ];
 
-var casingOneDia = prompt('What is the diameter in inches of the outermost casing?');
+function findCasings() {
 
-var casingOneDiaDecimal = eval(casingOneDia);
 
-var casingOnePoundsPerFoot = prompt('How many pounds per foot is the outermost casing? If you don\'t know the answer type "NA"');
+    var casingOneDia = prompt('What is the diameter in inches of the outermost casing?');
 
-var casingOnePoundsPerFootDecimal = 0;
+    var casingOneDiaDecimal = eval(casingOneDia);
 
-var casingOneInnerDia = 0;
+    var casingOnePoundsPerFoot = prompt('How many pounds per foot is the outermost casing? If you don\'t know the answer type "NA"');
 
-function findInnerDiaAndFindPoundsPerFoot() {
-  if (casingOnePoundsPerFoot === 'NA') {
-    var casingOneWallThickness = prompt('What is the wall thickness of the outermost casing in inches?');
-    var casingOneWallThicknessDecimal = eval(casingOneWallThickness);
-    for (var i = 0; i < pipes.length; i++) {
-      if (eval(pipes[i].nominal) === casingOneDiaDecimal && eval(pipes[i].wallThickness) === casingOneWallThicknessDecimal) {
-          casingOneInnerDia = eval(pipes[i].insideDia);
-          casingOnePoundsPerFootDecimal = eval(pipes[i].poundsPerFoot);
-      }
-    }
-  } else {
-    casingOnePoundsPerFootDecimal = eval(casingOnePoundsPerFoot);
-      for (var j = 0; j < pipes.length; j++) {
-        if (eval(pipes[j].nominal) === casingOneDiaDecimal && eval(pipes[j].poundsPerFoot) === casingOnePoundsPerFootDecimal) {
-            casingOneInnerDia = eval(pipes[j].insideDia);
+    var casingOnePoundsPerFootDecimal = 0;
+
+    var casingOneInnerDia = 0;
+
+    var casingOneOuterDia = 0;
+
+    function findCasingOneInnerDiaAndFindPoundsPerFoot() {
+      if (casingOnePoundsPerFoot.toUpperCase() == 'NA') {
+        var casingOneWallThickness = prompt('What is the wall thickness of the outermost casing in inches?');
+        var casingOneWallThicknessDecimal = eval(casingOneWallThickness);
+        for (var i = 0; i < pipes.length; i++) {
+          if (eval(pipes[i].nominal) === casingOneDiaDecimal && eval(pipes[i].wallThickness) === casingOneWallThicknessDecimal) {
+              casingOneInnerDia = eval(pipes[i].insideDia);
+              casingOneOuterDia = eval(pipes[i].outsideDia);
+              casingOnePoundsPerFootDecimal = eval(pipes[i].poundsPerFoot);
+          }
         }
+      } else {
+        casingOnePoundsPerFootDecimal = eval(casingOnePoundsPerFoot);
+          for (var j = 0; j < pipes.length; j++) {
+            if (eval(pipes[j].nominal) === casingOneDiaDecimal && eval(pipes[j].poundsPerFoot) === casingOnePoundsPerFootDecimal) {
+                casingOneInnerDia = eval(pipes[j].insideDia);
+            }
+          }
       }
-  }
+
+
+    }
+    findCasingOneInnerDiaAndFindPoundsPerFoot();
+
+    console.log(`The ${casingOneDiaDecimal}" casing inner-diameter is ${casingOneInnerDia} inches.`);
+    console.log(`The ${casingOneDiaDecimal}" casing outer-diameter is ${casingOneOuterDia} inches.`);
+    console.log(`The ${casingOneDiaDecimal} casing weight is ${casingOnePoundsPerFootDecimal} pounds per foot.`);
+
+
+    var isThereACasing2 = prompt('Is there an inner casing, yes or no?')
+
+    if (isThereACasing2.toUpperCase() === 'YES') {
+      var casingTwoDia = prompt('What is the diameter in inches of the next casing?');
+    } else {
+      document.write(`
+              The ${casingOneDiaDecimal}" casing inner-diameter is ${casingOneInnerDia} inches.<br>
+              The ${casingOneDiaDecimal}" casing outer-diameter is ${casingOneOuterDia} inches.<br>
+              The ${casingOneDiaDecimal}" casing weight is ${casingOnePoundsPerFootDecimal} pounds per foot.`);
+      return;
+    }
+
+    var casingTwoDiaDecimal = eval(casingTwoDia);
+
+    var casingTwoPoundsPerFoot = prompt('How many pounds per foot is the this casing? If you don\'t know the answer type "NA"');
+
+    var casingTwoPoundsPerFootDecimal = 0;
+
+    var casingTwoInnerDia = 0;
+
+    var casingTwoOuterDia = 0;
+
+    var concreteWeightBetweenOneAndTwo = 0;
+
+
+    function findCasingTwoInnerDiaAndFindPoundsPerFoot() {
+      if (casingTwoPoundsPerFoot.toUpperCase() === 'NA') {
+        var casingTwoWallThickness = prompt('What is the wall thickness of the this casing in inches?');
+        var casingTwoWallThicknessDecimal = eval(casingTwoWallThickness);
+        for (var i = 0; i < pipes.length; i++) {
+          if (eval(pipes[i].nominal) === casingTwoDiaDecimal && eval(pipes[i].wallThickness) === casingTwoWallThicknessDecimal) {
+              casingTwoInnerDia = eval(pipes[i].insideDia);
+              casingTwoOuterDia = eval(pipes[i].outsideDia);
+              casingTwoPoundsPerFootDecimal = eval(pipes[i].poundsPerFoot);      
+          }
+        }
+      } else {
+        casingTwoPoundsPerFootDecimal = eval(casingTwoPoundsPerFoot);
+          for (var j = 0; j < pipes.length; j++) {
+            if (eval(pipes[j].nominal) === casingTwoDiaDecimal && eval(pipes[j].poundsPerFoot) === casingTwoPoundsPerFootDecimal) {
+                casingTwoInnerDia = eval(pipes[j].insideDia);
+            }
+          }
+      }
+        concreteWeightBetweenOneAndTwo += (Math.pow(casingOneInnerDia,2) - Math.pow(casingTwoOuterDia,2)) * 3.14 / 4 / 144 * 150;
+    }
+
+    findCasingTwoInnerDiaAndFindPoundsPerFoot();
+
+    console.log(`The ${casingTwoDiaDecimal}" casing inner-diameter is ${casingTwoInnerDia} inches.`);
+    console.log(`The ${casingTwoDiaDecimal}" casing outer-diameter is ${casingTwoOuterDia} inches.`);
+    console.log(`The ${casingTwoDiaDecimal}" casing weight is ${casingTwoPoundsPerFootDecimal} pounds per foot.`);
+    console.log(`The concrete between the ${casingOneDiaDecimal}" and ${casingTwoDiaDecimal}" weighs ${concreteWeightBetweenOneAndTwo} pounds per foot.`);
+
+    
+    var isThereACasing3 = prompt('Is there an inner casing, yes or no?')
+
+    if (isThereACasing3.toUpperCase() === 'YES') {
+      var casingThreeDia = prompt('What is the diameter in inches of the next casing?');
+    } else {
+      document.write(`The ${casingOneDiaDecimal}" casing inner-diameter is ${casingOneInnerDia} inches.<br>
+              The ${casingOneDiaDecimal}" casing outer-diameter is ${casingOneOuterDia} inches.<br>
+              The ${casingOneDiaDecimal}" casing weight is ${casingOnePoundsPerFootDecimal} pounds per foot.<br><br>
+              The ${casingTwoDiaDecimal}" casing inner-diameter is ${casingTwoInnerDia} inches.<br>
+              The ${casingTwoDiaDecimal}" casing outer-diameter is ${casingTwoOuterDia} inches.<br>
+              The ${casingTwoDiaDecimal}" casing weight is ${casingTwoPoundsPerFootDecimal} pounds per foot.`);
+      return;
+    }
+
+    var casingThreeDiaDecimal = eval(casingThreeDia);
+
+    var casingThreePoundsPerFoot = prompt('How many pounds per foot is the this casing? If you don\'t know the answer type "NA"');
+
+    var casingThreePoundsPerFootDecimal = 0;
+
+    var casingThreeInnerDia = 0;
+
+    var casingThreeOuterDia = 0;
+
+    var concreteWeightBetweenTwoAndThree = 0;
+
+
+    function findCasingThreeInnerDiaAndFindPoundsPerFoot() {
+      if (casingThreePoundsPerFoot.toUpperCase() === 'NA') {
+        var casingThreeWallThickness = prompt('What is the wall thickness of the this casing in inches?');
+        var casingThreeWallThicknessDecimal = eval(casingThreeWallThickness);
+        for (var i = 0; i < pipes.length; i++) {
+          if (eval(pipes[i].nominal) === casingThreeDiaDecimal && eval(pipes[i].wallThickness) === casingThreeWallThicknessDecimal) {
+              casingThreeInnerDia = eval(pipes[i].insideDia);
+              casingThreeOuterDia =eval(pipes[i].outsideDia);
+              casingThreePoundsPerFootDecimal = eval(pipes[i].poundsPerFoot);
+          }
+        }
+      } else {
+        casingThreePoundsPerFootDecimal = eval(casingThreePoundsPerFoot);
+          for (var j = 0; j < pipes.length; j++) {
+            if (eval(pipes[j].nominal) === casingThreeDiaDecimal && eval(pipes[j].poundsPerFoot) === casingThreePoundsPerFootDecimal) {
+                casingThreeInnerDia = eval(pipes[j].insideDia);
+            }
+          }
+      }
+      concreteWeightBetweenTwoAndThree += (Math.pow(casingTwoInnerDia,2) - Math.pow(casingThreeOuterDia,2)) * 3.14 / 4 / 144 * 150;
+
+    }
+    findCasingThreeInnerDiaAndFindPoundsPerFoot();
+
+    console.log(`The ${casingThreeDiaDecimal}" casing inner-diameter is ${casingThreeInnerDia} inches.`);
+    console.log(`The ${casingThreeDiaDecimal}" casing outer-diameter is ${casingThreeOuterDia} inches.`);
+    console.log(`The ${casingThreeDiaDecimal}" casing weight is ${casingThreePoundsPerFootDecimal} pounds per foot.`);
+    console.log(`The concrete between the ${casingTwoDiaDecimal}" and ${casingThreeDiaDecimal}" weighs ${concreteWeightBetweenTwoAndThree} pounds per foot.`);
+
+
+    var isThereACasing4 = prompt('Is there an inner casing, yes or no?')
+
+    if (isThereACasing4.toUpperCase() === 'YES') {
+      var casingFourDia = prompt('What is the diameter in inches of the next casing?');
+    } else {
+      document.write(`The ${casingOneDiaDecimal}" casing inner-diameter is ${casingOneInnerDia} inches.<br>
+              The ${casingOneDiaDecimal}" casing outer-diameter is ${casingOneOuterDia} inches.<br>
+              The ${casingOneDiaDecimal}" casing weight is ${casingOnePoundsPerFootDecimal} pounds per foot.<br><br>
+              The ${casingTwoDiaDecimal}" casing inner-diameter is ${casingTwoInnerDia} inches.<br>
+              The ${casingTwoDiaDecimal}" casing outer-diameter is ${casingTwoOuterDia} inches.<br>
+              The ${casingTwoDiaDecimal}" casing weight is ${casingTwoPoundsPerFootDecimal} pounds per foot.<br><br>
+              The ${casingThreeDiaDecimal}" casing inner-diameter is ${casingThreeInnerDia} inches.<br>
+              The ${casingThreeDiaDecimal}" casing outer-diameter is ${casingThreeOuterDia} inches.<br>
+              The ${casingThreeDiaDecimal}" casing weight is ${casingThreePoundsPerFootDecimal} pounds per foot.`);
+      return;
+    }
+
+    var casingFourDiaDecimal = eval(casingFourDia);
+
+    var casingFourPoundsPerFoot = prompt('How many pounds per foot is the this casing? If you don\'t know the answer type "NA"');
+
+    var casingFourPoundsPerFootDecimal = 0;
+
+    var casingFourInnerDia = 0;
+
+    var casingFourOuterDia = 0;
+
+    var concreteWeightBetweenThreeAndFour = 0;
+
+
+    function findCasingFourInnerDiaAndFindPoundsPerFoot() {
+      if (casingFourPoundsPerFoot.toUpperCase() === 'NA') {
+        var casingFourWallThickness = prompt('What is the wall thickness of the this casing in inches?');
+        var casingFourWallThicknessDecimal = eval(casingFourWallThickness);
+        for (var i = 0; i < pipes.length; i++) {
+          if (eval(pipes[i].nominal) === casingFourDiaDecimal && eval(pipes[i].wallThickness) === casingFourWallThicknessDecimal) {
+              casingFourInnerDia = eval(pipes[i].insideDia);
+              casingFourOuterDia = eval(pipes[i].outsideDia);
+              casingFourPoundsPerFootDecimal = eval(pipes[i].poundsPerFoot);
+          }
+        }
+      } else {
+        casingFourPoundsPerFootDecimal = eval(casingFourPoundsPerFoot);
+          for (var j = 0; j < pipes.length; j++) {
+            if (eval(pipes[j].nominal) === casingFourDiaDecimal && eval(pipes[j].poundsPerFoot) === casingFourPoundsPerFootDecimal) {
+                casingFourInnerDia = eval(pipes[j].insideDia);
+            }
+          }
+      }
+      concreteWeightBetweenThreeAndFour += (Math.pow(casingThreeInnerDia,2) - Math.pow(casingFourOuterDia,2)) * 3.14 / 4 / 144 * 150;
+
+      document.write(`The ${casingOneDiaDecimal}" casing inner-diameter is ${casingOneInnerDia} inches.<br>
+              The ${casingOneDiaDecimal}" casing outer-diameter is ${casingOneOuterDia} inches.<br>
+              The ${casingOneDiaDecimal}" casing weight is ${casingOnePoundsPerFootDecimal} pounds per foot.<br><br>
+              The ${casingTwoDiaDecimal}" casing inner-diameter is ${casingTwoInnerDia} inches.<br>
+              The ${casingTwoDiaDecimal}" casing outer-diameter is ${casingTwoOuterDia} inches.<br>
+              The ${casingTwoDiaDecimal}" casing weight is ${casingTwoPoundsPerFootDecimal} pounds per foot.<br>
+              The concrete between the ${casingTwoDiaDecimal}" and ${casingThreeDiaDecimal}" weighs ${concreteWeightBetweenTwoAndThree} pounds per foot.<br><br>
+              The ${casingThreeDiaDecimal}" casing inner-diameter is ${casingThreeInnerDia} inches.<br>
+              The ${casingThreeDiaDecimal}" casing outer-diameter is ${casingThreeOuterDia} inches.<br>
+              The ${casingThreeDiaDecimal}" casing weight is ${casingThreePoundsPerFootDecimal} pounds per foot.<br>
+              The concrete between the ${casingTwoDiaDecimal}" and ${casingThreeDiaDecimal}" weighs ${concreteWeightBetweenTwoAndThree} pounds per foot.<br><br>
+              The ${casingFourDiaDecimal}" casing inner-diameter is ${casingFourInnerDia} inches.<br>
+              The ${casingFourDiaDecimal}" casing outer-diameter is ${casingFourOuterDia} inches.<br>
+              The ${casingFourDiaDecimal}" casing weight is ${casingFourPoundsPerFootDecimal} pounds per foot.<br>
+              The concrete between the ${casingThreeDiaDecimal}" and ${casingFourDiaDecimal}" weighs ${concreteWeightBetweenThreeAndFour} pounds per foot.
+              `);
+      return;
+    }
+    findCasingFourInnerDiaAndFindPoundsPerFoot();
+
+    console.log(`The ${casingFourDiaDecimal}" casing inner-diameter is ${casingFourInnerDia} inches.`);
+    console.log(`The ${casingFourDiaDecimal}" casing outer-diameter is ${casingFourOuterDia} inches.`);
+    console.log(`The ${casingFourDiaDecimal}" casing weight is ${casingFourPoundsPerFootDecimal} pounds per foot.`);
+    console.log(`The concrete between the ${casingThreeDiaDecimal}" and ${casingFourDiaDecimal}" weighs ${concreteWeightBetweenThreeAndFour} pounds per foot.`);
 
 
 }
-findInnerDiaAndFindPoundsPerFoot();
 
-console.log(`The outermost casing inner-diameter is ${casingOneInnerDia} inches.`);
-console.log(`The outermost casing weight is ${casingOnePoundsPerFootDecimal} pounds per foot.`);
-
-
+findCasings();
