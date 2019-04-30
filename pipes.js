@@ -3840,7 +3840,7 @@ function findCasings() {
     findCasingThreeInnerDiaAndFindPoundsPerFoot();
 
     function concreteWeightBetweenTwoAndThreeFunction() {
-      if (casingTwoConcreteQuestion.toUpperCase() === 'YES') {
+      if (casingThreeConcreteQuestion.toUpperCase() === 'YES') {
         concreteWeightBetweenTwoAndThree += (Math.pow(casingTwoInnerDia,2) - Math.pow(casingThreeOuterDia,2)) * 3.14 / 4 / 144 * 150;
       }
     }
@@ -3910,7 +3910,7 @@ function findCasings() {
     findCasingFourInnerDiaAndFindPoundsPerFoot();
 
     function concreteWeightBetweenThreeAndFourFunction() {
-      if (casingTwoConcreteQuestion.toUpperCase() === 'YES') {
+      if (casingFourConcreteQuestion.toUpperCase() === 'YES') {
         concreteWeightBetweenThreeAndFour += (Math.pow(casingThreeInnerDia,2) - Math.pow(casingFourOuterDia,2)) * 3.14 / 4 / 144 * 150;
       }
     }
