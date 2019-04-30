@@ -3786,6 +3786,7 @@ function findCasings() {
               The ${casingTwoDiaDecimal}" casing inner-diameter is ${casingTwoInnerDia} inches.<br>
               The ${casingTwoDiaDecimal}" casing outer-diameter is ${casingTwoOuterDia} inches.<br>
               The ${casingTwoDiaDecimal}" casing weight is ${casingTwoPoundsPerFootDecimal} pounds per foot.`);
+
       return;
     }
 
@@ -3889,7 +3890,7 @@ function findCasings() {
               The ${casingTwoDiaDecimal}" casing inner-diameter is ${casingTwoInnerDia} inches.<br>
               The ${casingTwoDiaDecimal}" casing outer-diameter is ${casingTwoOuterDia} inches.<br>
               The ${casingTwoDiaDecimal}" casing weight is ${casingTwoPoundsPerFootDecimal} pounds per foot.<br>
-              The concrete between the ${casingTwoDiaDecimal}" and ${casingThreeDiaDecimal}" weighs ${concreteWeightBetweenTwoAndThree} pounds per foot.<br><br>
+              The concrete between the ${casingOneDiaDecimal}" and ${casingTwoDiaDecimal}" weighs ${concreteWeightBetweenOneAndTwo} pounds per foot.<br><br>
               The ${casingThreeDiaDecimal}" casing inner-diameter is ${casingThreeInnerDia} inches.<br>
               The ${casingThreeDiaDecimal}" casing outer-diameter is ${casingThreeOuterDia} inches.<br>
               The ${casingThreeDiaDecimal}" casing weight is ${casingThreePoundsPerFootDecimal} pounds per foot.<br>
